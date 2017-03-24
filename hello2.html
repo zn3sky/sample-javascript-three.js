@@ -1,0 +1,49 @@
+<html>
+<head>
+<title>My first three.js app</title>
+<style>
+body { margin: 0; }
+canvas { width: 100%; height: 100% }
+</style>
+</head>
+<body>
+<script src="three.js"></script>
+<script>
+
+// レンダラーを作成
+var renderer = new THREE.WebGLRenderer();
+renderer.setSize(600, 600);
+document.body.appendChild(renderer.domElement);
+
+// シーンを作成
+var scene = new THREE.Scene();
+
+// カメラを作成
+var camera = new THREE.PerspectiveCamera(45, 600 / 600, 1, 1000);
+
+// 箱を作成
+var geometry = new THREE.BoxGeometry(1, 1, 1);
+var material = new THREE.MeshPhongMaterial({ color: 0x999999 });
+var cube = new THREE.Mesh(geometry, material);
+cube.position.z = -5;
+scene.add(cube);
+
+// 光を当てる
+var light = new THREE.DirectionalLight(0xffffff);
+light.position.set(1, 1, 1);
+scene.add(light);
+
+// 描画
+var render = function() {
+	requestAnimationFrame(render);
+	// 立方体を回転させる
+	cube.rotation.x += 0.01;
+	cube.rotation.y += 0.01;
+
+	renderer.render(scene, camera);
+};
+render();
+
+</script>
+</body>
+</html>
